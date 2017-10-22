@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="-翻译," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本文是GO中国社区发起翻译的文章，github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏览网页的we">
+<meta name="keywords" content="-翻译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Go Web Examples》中文翻译">
+<meta property="og:url" content="http://yoursite.com/2017/10/22/GoWebExamples中文翻译/index.html">
+<meta property="og:site_name" content="ryanbing">
+<meta property="og:description" content="本文是GO中国社区发起翻译的文章，github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏览网页的we">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-22T15:27:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Go Web Examples》中文翻译">
+<meta name="twitter:description" content="本文是GO中国社区发起翻译的文章，github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏览网页的we">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/22/GoWebExamples中文翻译/"/>
+
+
+
+
+
+  <title>《Go Web Examples》中文翻译 | ryanbing</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ryanbing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/GoWebExamples中文翻译/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ryanbing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ryanbing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Go Web Examples》中文翻译</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T21:39:52+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">-翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>  本文是GO中国社区发起翻译的文章，github项目地址访问<a href="https://github.com/go-chinese-site/gowebexamples" target="_blank" rel="external">这里</a>.原英文访问<a href="https://gowebexamples.com/" target="_blank" rel="external">这里</a></p>
+<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><p>Go 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏览网页的webserver是有多么简单。</p>
+<h4 id="Registering-a-Request-Handle"><a href="#Registering-a-Request-Handle" class="headerlink" title="Registering a Request Handle"></a>Registering a Request Handle</h4><p>首先，创建一个从浏览器接受进来的HTTP链接、HTTP client 或者API请求的Handler， 在Go 中是一个函数，它在创建的时候，形态上有如下相似特点<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w http.ResponseWriter, r *http.Request)</span></span></div></pre></td></tr></table></figure></p>
+<p>这个函数接受两个参数：</p>
+<blockquote>
+<p><code>http.ResponseWriter</code>: 这个参数是给你写你的text/html响应的<br><code>http.Request</code> : 它包含所有HTTP请求的信息，比如URL 或者 header<br>注册一个的HTTP Server 的request handler 非常简单，如下就是：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http.HandleFunc(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span> <span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	fmt.Fprintf(w, <span class="string">"Hello, you've requested: %s\n"</span>, r.URL.Path)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="Listen-for-HTTP-Connections"><a href="#Listen-for-HTTP-Connections" class="headerlink" title="Listen for HTTP Connections"></a>Listen for HTTP Connections</h4><p>一个单独的request handler不能接受任何外部的HTTP 链接。一个HTTP Server,为了把链接发送给request handle， 它必须监听一个端口。由于80端口是大多数默认的HTTP 流量通道， 所以本server也会用80端口来监控。下面的代码会启动一个GO的默认HTTP server ,同时监听80端口上的链接。你可以在你的浏览器中访问<code>http://localhost/</code>, 同时可以看到你的server正在处理你的request:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http.ListenAndServe(<span class="string">":80"</span>, <span class="literal">nil</span>)</div></pre></td></tr></table></figure></p>
+<h4 id="The-Code-for-copy-paste"><a href="#The-Code-for-copy-paste" class="headerlink" title="The Code (for copy/paste)"></a>The Code (for copy/paste)</h4><p>下面是完整的代码<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		fmt.Fprintf(w, <span class="string">"Hello, you've requested: %s\n"</span>, r.URL.Path)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":80"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Routing-using-gorilla-mux"><a href="#Routing-using-gorilla-mux" class="headerlink" title="Routing (using gorilla/mux)"></a>Routing (using gorilla/mux)</h3><h4 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h4><p>Go 的<code>net/http</code> 包提供了许多HTTP协议功能的函数。有一件事件，它还做的不够好，比如对于复杂的请求路由把请求的url分割成单个参数。幸运的是，在Go的社区里，有一个非常流行的package 来解决这个问题。在本例中，你将会看到如何用 <code>gorilla/mux</code>以命名参数、GET/POST Hander 和域名限制的形式来创建路由</p>
+<h4 id="Installing-the-gorilla-mux-package"><a href="#Installing-the-gorilla-mux-package" class="headerlink" title="Installing the gorilla/mux package"></a>Installing the gorilla/mux package</h4><p><code>gorilla/mux</code> 在写web 应用时，它带来了许多特性来提升生产效率。它在创建的时候，形态上和GO原始创建request handler 在创建形式上相似:<code>func (w http.ResponseWriter, r *http.Request)</code>.所以这个包可以和其他HTTP 库混合使用，比如middleware 或已经存在的应用。通过 <code>go get</code>从 Github 上下载安装：</p>
+<blockquote>
+<p>go get -u github.com/gorilla/mux</p>
+</blockquote>
+<h4 id="Creating-a-new-Router"><a href="#Creating-a-new-Router" class="headerlink" title="Creating a new Router"></a>Creating a new Router</h4><p>首先创建一个新的路由。对于你的web应用，这个路由是主路由，它会传递参数到你的server.它会接受所有的HTTP链接，同时发送到你注册的request handler 上。你可以像下面一下创建：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">r := mux.NewRouter()</div></pre></td></tr></table></figure></p>
+<h4 id="Registering-a-Request-Handler"><a href="#Registering-a-Request-Handler" class="headerlink" title="Registering a Request Handler"></a>Registering a Request Handler</h4><p>当你已经创建了一个路由，你可以像内置包那样注册request handler.唯一不同的是，调用 <code>http.HandleFunc(...)</code>时，你可以用<code>r.HandleFunc(...)</code> 来代替</p>
+<h4 id="URL-Parameters"><a href="#URL-Parameters" class="headerlink" title="URL Parameters"></a>URL Parameters</h4><p><code>gorilla/mux</code> 路由最具有能量的地方是从请求的URL上提取信息。作为一个例子，比如下面是你应用的URL:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/books/go-programming-blueprint/page/10</div></pre></td></tr></table></figure></p>
+<p>这个URL有两个动态部分：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1.Book 的标题（go-programming-blueprint）</div><div class="line">2.页数(10)</div></pre></td></tr></table></figure></p>
+<p>对于上面提到的URL,在处理request handler时， 你可以如下处理，来做动态参数处理：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">r.HandleFunc(<span class="string">"/books/&#123;title&#125;/page/&#123;page&#125;"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	<span class="comment">// get the book</span></div><div class="line">	<span class="comment">// navigate to the page</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>最后一件事就是从动态参数中获取数据。这个包提供一个函数<code>mux.Vars(r)</code> ,它把<code>http.Request</code>作为一个参数，并把动态参数以map的形式返回</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	vars := mux.Vars(r)</div><div class="line">	vars[<span class="string">"title"</span>] <span class="comment">// the book title slug</span></div><div class="line">	vars[<span class="string">"page"</span>] <span class="comment">// the page</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Setting-the-HTTP-server’s-router"><a href="#Setting-the-HTTP-server’s-router" class="headerlink" title="Setting the HTTP server’s router"></a>Setting the HTTP server’s router</h4><p>想知道<code>nil</code> 在<code>http.ListenAndServe(&quot;:80&quot;, nil)</code> 的意义？它是HTTP server d的主路由的参数。默认情况下，它是<code>nil</code>， 它表示用<code>net/http</code>包的默认路由。 为了利用你自己的路由，用你的路由参数<code>r</code> 取代 <code>nil</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http.ListenAndServe(&quot;:80&quot;, r)</div></pre></td></tr></table></figure></p>
+<h4 id="The-Code-for-copy-paste-1"><a href="#The-Code-for-copy-paste-1" class="headerlink" title="The Code (for copy/paste)"></a>The Code (for copy/paste)</h4><p>下面是全部的代码<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line"></div><div class="line">	<span class="string">"github.com/gorilla/mux"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	r := mux.NewRouter()</div><div class="line">	r.HandleFunc(<span class="string">"/books/&#123;title&#125;/page/&#123;page&#125;"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		vars := mux.Vars(r)</div><div class="line">		title := vars[<span class="string">"title"</span>]</div><div class="line">		page := vars[<span class="string">"page"</span>]</div><div class="line"></div><div class="line">		fmt.Fprintf(w, <span class="string">"You've requested the book: %s on page %s\n"</span>, title, page)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":80"</span>, r)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Features-of-the-gorilla-mux-Router"><a href="#Features-of-the-gorilla-mux-Router" class="headerlink" title="Features of the gorilla/mux Router"></a>Features of the gorilla/mux Router</h4><h5 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h5><p>将请求方法指定为HTTP 方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">r.HandleFunc(&quot;/books/&#123;title&#125;&quot;, CreateBook).Methods(&quot;POST&quot;)</div><div class="line">r.HandleFunc(&quot;/books/&#123;title&#125;&quot;, ReadBook).Methods(&quot;GET&quot;)</div><div class="line">r.HandleFunc(&quot;/books/&#123;title&#125;&quot;, UpdateBook).Methods(&quot;PUT&quot;)</div><div class="line">r.HandleFunc(&quot;/books/&#123;title&#125;&quot;, DeleteBook).Methods(&quot;DELETE&quot;)</div></pre></td></tr></table></figure></p>
+<h5 id="Hostnames-amp-Subdomains"><a href="#Hostnames-amp-Subdomains" class="headerlink" title="Hostnames &amp; Subdomains"></a>Hostnames &amp; Subdomains</h5><p>对特定的hostname或子域名做限制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">r.HandleFunc(&quot;/books/&#123;title&#125;&quot;, BookHandler).Host(&quot;www.mybookstore.com&quot;)</div></pre></td></tr></table></figure>
+<h5 id="Schemes"><a href="#Schemes" class="headerlink" title="Schemes"></a>Schemes</h5><p>将请求限制为<code>http/https</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">r.HandleFunc(&quot;/secure&quot;, SecureHandler).Schemes(&quot;https&quot;)</div><div class="line">r.HandleFunc(&quot;/insecure&quot;, InsecureHandler).Schemes(&quot;http&quot;)</div></pre></td></tr></table></figure></p>
+<h5 id="Path-Prefixes-amp-Subrouters"><a href="#Path-Prefixes-amp-Subrouters" class="headerlink" title="Path Prefixes &amp; Subrouters"></a>Path Prefixes &amp; Subrouters</h5><p>将请求限定为特定的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bookrouter := r.PathPrefix(&quot;/books&quot;).Subrouter()</div><div class="line">bookrouter.HandleFunc(&quot;/&quot;, AllBooks)</div><div class="line">bookrouter.HandleFunc(&quot;/&#123;title&#125;&quot;, GetBook)</div></pre></td></tr></table></figure></p>
+<h3 id="Templates"><a href="#Templates" class="headerlink" title="Templates"></a>Templates</h3><h4 id="Introduction-1"><a href="#Introduction-1" class="headerlink" title="Introduction"></a>Introduction</h4><p>Go 的<code>html/template</code>包对HTML模板提供了丰富的模板语言。它主要用于Web应用程序，在客户端的浏览中以结构化的方式显示数据。Go 模板语言最大的好处就是数据的自动转义。没有必要担心在显示浏览器之前，那些作为GO解析HTML模板的XSS攻击和避开所有输入。</p>
+<h4 id="First-Template"><a href="#First-Template" class="headerlink" title="First Template"></a>First Template</h4><p>GO写一个模板非常简单。这个例子展示一个TODO 列表, 用HTML中的无序列表 （ul）来写， 当渲染模板时， 可以从GO的各种数据结构中导入。它可以是简单的string 或 数字， 它甚至可以是嵌套的数据结构。要访问模板中的数据，最前的变量是通过&#123;&#123;  &#125;&#125; 来访问。其中 花括号中的点(.) 称为管道和root<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">data := TodoPageData&#123;</div><div class="line">	PageTitle: <span class="string">"My TODO list"</span>,</div><div class="line">	Todos: []Todo&#123;</div><div class="line">		&#123;Title: <span class="string">"Task 1"</span>, Done: <span class="literal">false</span>&#125;,</div><div class="line">		&#123;Title: <span class="string">"Task 2"</span>, Done: <span class="literal">true</span>&#125;,</div><div class="line">		&#123;Title: <span class="string">"Task 3"</span>, Done: <span class="literal">true</span>&#125;,</div><div class="line">	&#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;.PageTitle&#125;&#125;<span class="tag">&lt;<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">    &#123;&#123;range .Todos&#125;&#125;</div><div class="line">        &#123;&#123;if .Done&#125;&#125;</div><div class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"done"</span>&gt;</span>&#123;&#123;.Title&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        &#123;&#123;else&#125;&#125;</div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;.Title&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        &#123;&#123;end&#125;&#125;</div><div class="line">    &#123;&#123;end&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="Control-Structures"><a href="#Control-Structures" class="headerlink" title="Control Structures"></a>Control Structures</h4><p>模板语言包含一组丰富的控制结构来渲染HTML.这里你将会看到一些最常用的。更详细的清单访问<a href="https://golang.org/pkg/text/template/#hdr-Actions" target="_blank" rel="external">text/template</a><br>|Control Structure | Definition|<br>—|—<br>|&#123;&#123;/<em> a comment </em>/&#125;&#125; | Defines a comment|<br>|&#123;&#123;.&#125;&#125; | Renders the root element|<br>|&#123;&#123;.Title&#125;&#125; | Renders the “Title”-field in a nested element|<br>|&#123;&#123;if .Done&#125;&#125; &#123;&#123;else&#125;&#125; &#123;&#123;end&#125;&#125; | Defines an if-Statement|<br>|&#123;&#123;range .Todos&#125;&#125; &#123;&#123;.&#125;&#125; &#123;&#123;end&#125;&#125; | Loops over all “Todos” and renders each using &#123;&#123;.&#125;&#125;|<br>|&#123;&#123;block “content” .&#125;&#125; &#123;&#123;end&#125;&#125; | Defines a block with the name “content”|</p>
+<h4 id="Parsing-Templates-from-Files"><a href="#Parsing-Templates-from-Files" class="headerlink" title="Parsing Templates from Files"></a>Parsing Templates from Files</h4><p>模板可以是从一个字符串或者磁盘上的文件解析。通常下，模板是来自磁盘。这个example 展示了如何来操作。在这个例子，下面GO程序中，有一个模板名字为<code>layout.html</code><br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tmpl, err := template.ParseFiles(<span class="string">"layout.html"</span>)</div><div class="line"><span class="comment">// or</span></div><div class="line">tmpl := template.Must(template.ParseFiles(<span class="string">"layout.html"</span>))</div></pre></td></tr></table></figure></p>
+<h4 id="Execute-a-Template-in-a-Request-Handler"><a href="#Execute-a-Template-in-a-Request-Handler" class="headerlink" title="Execute a Template in a Request Handler"></a>Execute a Template in a Request Handler</h4><p>模板从磁盘解析后，就可以在请求处理程序中使用它。<code>Execute</code> 函数接受一个写入模板的<code>io.Writer</code>和一个将数据传递到模板中的 interface {} 。当被一个http.ResponseWriter 调用时. Content-Type 是被自动设置在HTTP response 中<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	tmpl.Execute(w, <span class="string">"data goes here"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="The-Code-for-copy-paste-2"><a href="#The-Code-for-copy-paste-2" class="headerlink" title="The Code (for copy/paste)"></a>The Code (for copy/paste)</h4><p>下面是全部代码<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"html/template"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> Todo <span class="keyword">struct</span> &#123;</div><div class="line">	Title <span class="keyword">string</span></div><div class="line">	Done  <span class="keyword">bool</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> TodoPageData <span class="keyword">struct</span> &#123;</div><div class="line">	PageTitle <span class="keyword">string</span></div><div class="line">	Todos     []Todo</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	tmpl := template.Must(template.ParseFiles(<span class="string">"layout.html"</span>))</div><div class="line"></div><div class="line">	http.HandleFunc(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		data := TodoPageData&#123;</div><div class="line">			PageTitle: <span class="string">"My TODO list"</span>,</div><div class="line">			Todos: []Todo&#123;</div><div class="line">				&#123;Title: <span class="string">"Task 1"</span>, Done: <span class="literal">false</span>&#125;,</div><div class="line">				&#123;Title: <span class="string">"Task 2"</span>, Done: <span class="literal">true</span>&#125;,</div><div class="line">				&#123;Title: <span class="string">"Task 3"</span>, Done: <span class="literal">true</span>&#125;,</div><div class="line">			&#125;,</div><div class="line">		&#125;</div><div class="line">		tmpl.Execute(w, data)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":80"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;.PageTitle&#125;&#125;<span class="tag">&lt;<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">    &#123;&#123;range .Todos&#125;&#125;</div><div class="line">        &#123;&#123;if .Done&#125;&#125;</div><div class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"done"</span>&gt;</span>&#123;&#123;.Title&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        &#123;&#123;else&#125;&#125;</div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;.Title&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        &#123;&#123;end&#125;&#125;</div><div class="line">    &#123;&#123;end&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="Forms"><a href="#Forms" class="headerlink" title="Forms"></a>Forms</h3><p>这个例子将演示如何模拟联系人表单并将其解析为结构<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// forms.go</span></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"html/template"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> ContactDetails <span class="keyword">struct</span> &#123;</div><div class="line">	Email   <span class="keyword">string</span></div><div class="line">	Subject <span class="keyword">string</span></div><div class="line">	Message <span class="keyword">string</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	tmpl := template.Must(template.ParseFiles(<span class="string">"forms.html"</span>))</div><div class="line"></div><div class="line">	http.HandleFunc(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		<span class="keyword">if</span> r.Method != http.MethodPost &#123;</div><div class="line">			tmpl.Execute(w, <span class="literal">nil</span>)</div><div class="line">			<span class="keyword">return</span></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		details := ContactDetails&#123;</div><div class="line">			Email:   r.FormValue(<span class="string">"email"</span>),</div><div class="line">			Subject: r.FormValue(<span class="string">"subject"</span>),</div><div class="line">			Message: r.FormValue(<span class="string">"message"</span>),</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">// do something with details</span></div><div class="line">		_ = details</div><div class="line"></div><div class="line">		tmpl.Execute(w, <span class="keyword">struct</span>&#123; Success <span class="keyword">bool</span> &#125;&#123;<span class="literal">true</span>&#125;)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- forms.html --&gt;</span></div><div class="line">&#123;&#123;if .Success&#125;&#125;</div><div class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>Thanks for your message!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">&#123;&#123;else&#125;&#125;</div><div class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>Contact<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">label</span>&gt;</span>Email:<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"email"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">label</span>&gt;</span>Subject:<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"subject"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">label</span>&gt;</span>Message:<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">"message"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="Assets-and-Files"><a href="#Assets-and-Files" class="headerlink" title="Assets and Files"></a>Assets and Files</h3><p>这个例子将展示如何使用静态文件比如CSS、 JavaScripts或图片<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// static-files.go</span></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="string">"net/http"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	fs := http.FileServer(http.Dir(<span class="string">"assets/"</span>))</div><div class="line">	http.Handle(<span class="string">"/static/"</span>, http.StripPrefix(<span class="string">"/static/"</span>, fs))</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ tree assets/</div><div class="line">assets/</div><div class="line">└── css</div><div class="line">    └── styles.css</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ go run static-files.go</div><div class="line"></div><div class="line">$ curl -s http://localhost:8080/static/css/styles.css</div><div class="line">body &#123;</div><div class="line">    background-color: black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Middleware-Basic"><a href="#Middleware-Basic" class="headerlink" title="Middleware (Basic)"></a>Middleware (Basic)</h3><p>这个例子将展示如何在GO中创建基本的日志中间件。一个中间件只需要一个 <code>http.HandlerFunc</code> 作为它其中的一个参数，装饰它，并返回一个新的<code>http.HandlerFunc</code>用于服务器调用<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// basic-middleware.go</span></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"log"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">logging</span><span class="params">(f http.HandlerFunc)</span> <span class="title">http</span>.<span class="title">HandlerFunc</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		log.Println(r.URL.Path)</div><div class="line">		f(w, r)</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">foo</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	fmt.Fprintln(w, <span class="string">"foo"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">bar</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	fmt.Fprintln(w, <span class="string">"bar"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/foo"</span>, logging(foo))</div><div class="line">	http.HandleFunc(<span class="string">"/bar"</span>, logging(bar))</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ go run basic-middleware.go</div><div class="line">2017/02/10 23:59:34 /foo</div><div class="line">2017/02/10 23:59:35 /bar</div><div class="line">2017/02/10 23:59:36 /foo?bar</div><div class="line"></div><div class="line">$ curl -s http://localhost:8080/foo</div><div class="line">$ curl -s http://localhost:8080/bar</div><div class="line">$ curl -s http://localhost:8080/foo?bar</div></pre></td></tr></table></figure>
+<h3 id="Middleware-Advanced"><a href="#Middleware-Advanced" class="headerlink" title="Middleware (Advanced)"></a>Middleware (Advanced)</h3><p>这个例子将展示如何在GO中创建更高级的中间件。一个中间件只需要一个<code>http.HandlerFunc</code> 作为它的一个参数，装饰它并把它作为一个新的 <code>http.HandlerFunc</code>  给服务器调用</p>
+<p>在这里，我们定义一个新的类型<code>Middleware</code>, 它可以更容易的链接多个中间件。这个想法灵感来自于Mat Ryer 谈论如果建立APIs.你可以从<a href="https://medium.com/@matryer/writing-middleware-in-golang-and-how-go-makes-it-so-much-fun-4375c1246e81" target="_blank" rel="external">这里</a> 查看更详细的<br>这个片段详细展示了如何创建一个新的中间件。此处下面是完整的例子，这里我们减少了一些样板代码。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">unc createNewMiddleware() Middleware &#123;</div><div class="line"></div><div class="line">	<span class="comment">// Create a new Middleware</span></div><div class="line">	middleware := <span class="function"><span class="keyword">func</span><span class="params">(next http.HandlerFunc)</span> <span class="title">http</span>.<span class="title">HandlerFunc</span></span> &#123;</div><div class="line"></div><div class="line">		<span class="comment">// Define the http.HandlerFunc which is called by the server eventually</span></div><div class="line">		handler := <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line"></div><div class="line">			<span class="comment">// ... do middleware things</span></div><div class="line"></div><div class="line">			<span class="comment">// Call the next middleware/handler in chain</span></div><div class="line">			next(w, r)</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">// Return newly created handler</span></div><div class="line">		<span class="keyword">return</span> handler</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// Return newly created middleware</span></div><div class="line">	<span class="keyword">return</span> middleware</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>下面是完整的例子<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// advanced-middleware.go</span></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"log"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">	<span class="string">"time"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> Middleware <span class="function"><span class="keyword">func</span><span class="params">(http.HandlerFunc)</span> <span class="title">http</span>.<span class="title">HandlerFunc</span></span></div><div class="line"><span class="function"></span></div><div class="line"><span class="function">// <span class="title">Logging</span> <span class="title">logs</span> <span class="title">all</span> <span class="title">requests</span> <span class="title">with</span> <span class="title">its</span> <span class="title">path</span> <span class="title">and</span> <span class="title">the</span> <span class="title">time</span> <span class="title">it</span> <span class="title">took</span> <span class="title">to</span> <span class="title">process</span></span></div><div class="line"><span class="function"><span class="title">func</span> <span class="title">Logging</span><span class="params">()</span> <span class="title">Middleware</span></span> &#123;</div><div class="line"></div><div class="line">	<span class="comment">// Create a new Middleware</span></div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(f http.HandlerFunc)</span> <span class="title">http</span>.<span class="title">HandlerFunc</span></span> &#123;</div><div class="line"></div><div class="line">		<span class="comment">// Define the http.HandlerFunc</span></div><div class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line"></div><div class="line">			<span class="comment">// Do middleware things</span></div><div class="line">			start := time.Now()</div><div class="line">			<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; log.Println(r.URL.Path, time.Since(start)) &#125;()</div><div class="line"></div><div class="line">			<span class="comment">// Call the next middleware/handler in chain</span></div><div class="line">			f(w, r)</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Method ensures that url can only be requested with a specific method, else returns a 400 Bad Request</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">Method</span><span class="params">(m <span class="keyword">string</span>)</span> <span class="title">Middleware</span></span> &#123;</div><div class="line"></div><div class="line">	<span class="comment">// Create a new Middleware</span></div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(f http.HandlerFunc)</span> <span class="title">http</span>.<span class="title">HandlerFunc</span></span> &#123;</div><div class="line"></div><div class="line">		<span class="comment">// Define the http.HandlerFunc</span></div><div class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line"></div><div class="line">			<span class="comment">// Do middleware things</span></div><div class="line">			<span class="keyword">if</span> r.Method != m &#123;</div><div class="line">				http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)</div><div class="line">				<span class="keyword">return</span></div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="comment">// Call the next middleware/handler in chain</span></div><div class="line">			f(w, r)</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Chain applies middlewares to a http.HandlerFunc</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">Chain</span><span class="params">(f http.HandlerFunc, middlewares ...Middleware)</span> <span class="title">http</span>.<span class="title">HandlerFunc</span></span> &#123;</div><div class="line">	<span class="keyword">for</span> _, m := <span class="keyword">range</span> middlewares &#123;</div><div class="line">		f = m(f)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> f</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	fmt.Fprintln(w, <span class="string">"hello world"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/"</span>, Chain(Hello, Method(<span class="string">"GET"</span>), Logging()))</div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ go run advanced-middleware.go</div><div class="line">2017/02/11 00:34:53 / 0s</div><div class="line"></div><div class="line">$ curl -s http://localhost:8080/</div><div class="line">hello world</div><div class="line"></div><div class="line">$ curl -s -XPOST http://localhost:8080/</div><div class="line">Bad Request</div></pre></td></tr></table></figure>
+<h3 id="Sessions"><a href="#Sessions" class="headerlink" title="Sessions"></a>Sessions</h3><p>这个例子将会展示如何通过流行的<a href="https://github.com/gorilla/sessions" target="_blank" rel="external">gorilla/sessions</a>包，存储session cookies<br>cookie 是存储在用户浏览器中的小数据，并在每次请求时发送到服务器。在它们中，我们可以存储用户是否登录到我们的网站，并找出它时间上是谁（在我们系统中）<br>在本例中，我们只允许经过身份验证在<code>/secret</code> 页上查看隐私的信息。要访问它，首先要访问<code>/login</code>得到有效的会话cookie.此外，他可以访问<code>/logout</code> 来注销我们访问私密信息的权限<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// sessions.go</span></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line"></div><div class="line">	<span class="string">"github.com/gorilla/sessions"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">var</span> (</div><div class="line">	<span class="comment">// key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)</span></div><div class="line">	key = []<span class="keyword">byte</span>(<span class="string">"super-secret-key"</span>)</div><div class="line">	store = sessions.NewCookieStore(key)</div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">secret</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	session, _ := store.Get(r, <span class="string">"cookie-name"</span>)</div><div class="line"></div><div class="line">	<span class="comment">// Check if user is authenticated</span></div><div class="line">	<span class="keyword">if</span> auth, ok := session.Values[<span class="string">"authenticated"</span>].(<span class="keyword">bool</span>); !ok || !auth &#123;</div><div class="line">		http.Error(w, <span class="string">"Forbidden"</span>, http.StatusForbidden)</div><div class="line">		<span class="keyword">return</span></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// Print secret message</span></div><div class="line">	fmt.Fprintln(w, <span class="string">"The cake is a lie!"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">login</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	session, _ := store.Get(r, <span class="string">"cookie-name"</span>)</div><div class="line"></div><div class="line">	<span class="comment">// Authentication goes here</span></div><div class="line">	<span class="comment">// ...</span></div><div class="line"></div><div class="line">	<span class="comment">// Set user as authenticated</span></div><div class="line">	session.Values[<span class="string">"authenticated"</span>] = <span class="literal">true</span></div><div class="line">	session.Save(r, w)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">logout</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	session, _ := store.Get(r, <span class="string">"cookie-name"</span>)</div><div class="line"></div><div class="line">	<span class="comment">// Revoke users authentication</span></div><div class="line">	session.Values[<span class="string">"authenticated"</span>] = <span class="literal">false</span></div><div class="line">	session.Save(r, w)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/secret"</span>, secret)</div><div class="line">	http.HandleFunc(<span class="string">"/login"</span>, login)</div><div class="line">	http.HandleFunc(<span class="string">"/logout"</span>, logout)</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ go run sessions.go</div><div class="line"></div><div class="line">$ curl -s http://localhost:8080/secret</div><div class="line">Forbidden</div><div class="line"></div><div class="line">$ curl -s -I http://localhost:8080/login</div><div class="line">Set-Cookie: cookie-name=MTQ4NzE5Mz...</div><div class="line"></div><div class="line">$ curl -s --cookie <span class="string">"cookie-name=MTQ4NzE5Mz..."</span> http://localhost:8080/secret</div><div class="line">The cake is a lie!</div></pre></td></tr></table></figure>
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>本例将展示如何使用encoding/json包来编码和解码 JSON文件的<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// json.go</span></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"encoding/json"</span></div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</div><div class="line">	Firstname <span class="keyword">string</span> <span class="string">`json:"firstname"`</span></div><div class="line">	Lastname  <span class="keyword">string</span> <span class="string">`json:"lastname"`</span></div><div class="line">	Age       <span class="keyword">int</span>    <span class="string">`json:"age"`</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/decode"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		<span class="keyword">var</span> user User</div><div class="line">		json.NewDecoder(r.Body).Decode(&amp;user)</div><div class="line"></div><div class="line">		fmt.Fprintf(w, <span class="string">"%s %s is %d years old!"</span>, user.Firstname, user.Lastname, user.Age)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	http.HandleFunc(<span class="string">"/encode"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		peter := User&#123;</div><div class="line">			Firstname: <span class="string">"John"</span>,</div><div class="line">			Lastname:  <span class="string">"Doe"</span>,</div><div class="line">			Age:       <span class="number">25</span>,</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		json.NewEncoder(w).Encode(peter)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ go run json.go</div><div class="line"></div><div class="line">$ curl -s -XPOST -d<span class="string">'&#123;"firstname":"Donald","lastname":"Trump","age":70&#125;'</span> http://localhost:8080/decode</div><div class="line">Donald Trump is 70 years old!</div><div class="line"></div><div class="line">$ curl -s http://localhost:8080/encode</div><div class="line">&#123;<span class="string">"firstname"</span>:<span class="string">"John"</span>,<span class="string">"lastname"</span>:<span class="string">"Doe"</span>,<span class="string">"age"</span>:25&#125;</div></pre></td></tr></table></figure>
+<h3 id="Websockets"><a href="#Websockets" class="headerlink" title="Websockets"></a>Websockets</h3><p>这个例子将展示如何使用Websockets。我们将建立一个简单的server,它发回我们发给它所有的内容。这里我们用<code>go get</code>来下载<a href="https://github.com/gorilla/websocket" target="_blank" rel="external">gorilla/websocket</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go get github.com/gorilla/websocket</div></pre></td></tr></table></figure></p>
+<p>下面是全部的代码<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// websockets.go</span></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line"></div><div class="line">	<span class="string">"github.com/gorilla/websocket"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">var</span> upgrader = websocket.Upgrader&#123;</div><div class="line">	ReadBufferSize:  <span class="number">1024</span>,</div><div class="line">	WriteBufferSize: <span class="number">1024</span>,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/echo"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		conn, _ := upgrader.Upgrade(w, r, <span class="literal">nil</span>) <span class="comment">// error ignored for sake of simplicity</span></div><div class="line"></div><div class="line">		<span class="keyword">for</span> &#123;</div><div class="line">			<span class="comment">// Read message from browser</span></div><div class="line">			msgType, msg, err := conn.ReadMessage()</div><div class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</div><div class="line">				<span class="keyword">return</span></div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="comment">// Print the message to the console</span></div><div class="line">			fmt.Printf(<span class="string">"%s sent: %s\n"</span>, conn.RemoteAddr(), <span class="keyword">string</span>(msg))</div><div class="line"></div><div class="line">			<span class="comment">// Write message back to browser</span></div><div class="line">			<span class="keyword">if</span> err = conn.WriteMessage(msgType, msg); err != <span class="literal">nil</span> &#123;</div><div class="line">				<span class="keyword">return</span></div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	http.HandleFunc(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		http.ServeFile(w, r, <span class="string">"websockets.html"</span>)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- websockets.html --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"input"</span> <span class="attr">type</span>=<span class="string">"text"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"send()"</span>&gt;</span>Send<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">pre</span> <span class="attr">id</span>=<span class="string">"output"</span>&gt;</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">	var input = document.getElementById("input");</span></div><div class="line"><span class="undefined">	var output = document.getElementById("output");</span></div><div class="line"><span class="undefined">	var socket = new WebSocket("ws://localhost:8080/echo");</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">	socket.onopen = function () &#123;</span></div><div class="line"><span class="undefined">		output.innerHTML += "Status: Connected\n";</span></div><div class="line"><span class="undefined">	&#125;;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">	socket.onmessage = function (e) &#123;</span></div><div class="line"><span class="undefined">		output.innerHTML += "Server: " + e.data + "\n";</span></div><div class="line"><span class="undefined">	&#125;;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">	function send() &#123;</span></div><div class="line"><span class="undefined">		socket.send(input.value);</span></div><div class="line"><span class="undefined">		input.value = "";</span></div><div class="line"><span class="undefined">	&#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ go run websockets.go</div><div class="line">[127.0.0.1]:53403 sent: Hello Go Web Examples, you<span class="string">'re doing great!</span></div></pre></td></tr></table></figure>
+<p>###Password Hashing (bcrypt)<br>这个例子将展示如何使用bcrypt 来hash 密码，获取package:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ go get golang.org/x/crypto/bcrypt</div></pre></td></tr></table></figure></p>
+<p>从现在开始，我们编写的每个应用程序都利用这个库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">// passwords.go</div><div class="line">package main</div><div class="line"></div><div class="line">import (</div><div class="line">	&quot;fmt&quot;</div><div class="line"></div><div class="line">	&quot;golang.org/x/crypto/bcrypt&quot;</div><div class="line">)</div><div class="line"></div><div class="line">func HashPassword(password string) (string, error) &#123;</div><div class="line">	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)</div><div class="line">	return string(bytes), err</div><div class="line">&#125;</div><div class="line"></div><div class="line">func CheckPasswordHash(password, hash string) bool &#123;</div><div class="line">	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))</div><div class="line">	return err == nil</div><div class="line">&#125;</div><div class="line"></div><div class="line">func main() &#123;</div><div class="line">	password := &quot;secret&quot;</div><div class="line">	hash, _ := HashPassword(password) // ignore error for the sake of simplicity</div><div class="line"></div><div class="line">	fmt.Println(&quot;Password:&quot;, password)</div><div class="line">	fmt.Println(&quot;Hash:    &quot;, hash)</div><div class="line"></div><div class="line">	match := CheckPasswordHash(password, hash)</div><div class="line">	fmt.Println(&quot;Match:   &quot;, match)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ go run passwords.go</div><div class="line">Password: secret</div><div class="line">Hash:     <span class="variable">$2a</span><span class="variable">$14</span><span class="variable">$ajq8Q7fbtFRQvXpdCq7Jcuy</span>.Rx1h/L4J60Otx.gyNLbAYctGMJ9tK</div><div class="line">Match:    <span class="literal">true</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/翻译/" rel="tag"># -翻译</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/17/java和python中的Concurrent包的future异步/" rel="next" title="java和python中的Concurrent包的future异步">
+                <i class="fa fa-chevron-left"></i> java和python中的Concurrent包的future异步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="ryanbing" />
+          <p class="site-author-name" itemprop="name">ryanbing</p>
+           
+              <p class="site-description motion-element" itemprop="description">ryanbing's blog</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/legotime" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World"><span class="nav-number">1.</span> <span class="nav-text">Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Registering-a-Request-Handle"><span class="nav-number">1.2.</span> <span class="nav-text">Registering a Request Handle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Listen-for-HTTP-Connections"><span class="nav-number">1.3.</span> <span class="nav-text">Listen for HTTP Connections</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Code-for-copy-paste"><span class="nav-number">1.4.</span> <span class="nav-text">The Code (for copy/paste)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Routing-using-gorilla-mux"><span class="nav-number">2.</span> <span class="nav-text">Routing (using gorilla/mux)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#introduction"><span class="nav-number">2.1.</span> <span class="nav-text">introduction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Installing-the-gorilla-mux-package"><span class="nav-number">2.2.</span> <span class="nav-text">Installing the gorilla/mux package</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Creating-a-new-Router"><span class="nav-number">2.3.</span> <span class="nav-text">Creating a new Router</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Registering-a-Request-Handler"><span class="nav-number">2.4.</span> <span class="nav-text">Registering a Request Handler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URL-Parameters"><span class="nav-number">2.5.</span> <span class="nav-text">URL Parameters</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Setting-the-HTTP-server’s-router"><span class="nav-number">2.6.</span> <span class="nav-text">Setting the HTTP server’s router</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Code-for-copy-paste-1"><span class="nav-number">2.7.</span> <span class="nav-text">The Code (for copy/paste)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Features-of-the-gorilla-mux-Router"><span class="nav-number">2.8.</span> <span class="nav-text">Features of the gorilla/mux Router</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Methods"><span class="nav-number">2.8.1.</span> <span class="nav-text">Methods</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hostnames-amp-Subdomains"><span class="nav-number">2.8.2.</span> <span class="nav-text">Hostnames & Subdomains</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Schemes"><span class="nav-number">2.8.3.</span> <span class="nav-text">Schemes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Path-Prefixes-amp-Subrouters"><span class="nav-number">2.8.4.</span> <span class="nav-text">Path Prefixes & Subrouters</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Templates"><span class="nav-number">3.</span> <span class="nav-text">Templates</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Introduction-1"><span class="nav-number">3.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#First-Template"><span class="nav-number">3.2.</span> <span class="nav-text">First Template</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Control-Structures"><span class="nav-number">3.3.</span> <span class="nav-text">Control Structures</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parsing-Templates-from-Files"><span class="nav-number">3.4.</span> <span class="nav-text">Parsing Templates from Files</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Execute-a-Template-in-a-Request-Handler"><span class="nav-number">3.5.</span> <span class="nav-text">Execute a Template in a Request Handler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Code-for-copy-paste-2"><span class="nav-number">3.6.</span> <span class="nav-text">The Code (for copy/paste)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Forms"><span class="nav-number">4.</span> <span class="nav-text">Forms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Assets-and-Files"><span class="nav-number">5.</span> <span class="nav-text">Assets and Files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Middleware-Basic"><span class="nav-number">6.</span> <span class="nav-text">Middleware (Basic)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Middleware-Advanced"><span class="nav-number">7.</span> <span class="nav-text">Middleware (Advanced)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sessions"><span class="nav-number">8.</span> <span class="nav-text">Sessions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON"><span class="nav-number">9.</span> <span class="nav-text">JSON</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Websockets"><span class="nav-number">10.</span> <span class="nav-text">Websockets</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ryanbing</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
