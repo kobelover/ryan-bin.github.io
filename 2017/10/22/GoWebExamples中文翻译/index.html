@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="本文是GO中国社区发起翻译的文章，github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏览网页的we">
+<meta name="description" content="本文是GO中国社区发起翻译的文章，由本人翻译。github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏">
 <meta name="keywords" content="-翻译">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Go Web Examples》中文翻译">
 <meta property="og:url" content="http://yoursite.com/2017/10/22/GoWebExamples中文翻译/index.html">
 <meta property="og:site_name" content="ryanbing">
-<meta property="og:description" content="本文是GO中国社区发起翻译的文章，github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏览网页的we">
+<meta property="og:description" content="本文是GO中国社区发起翻译的文章，由本人翻译。github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-22T15:27:00.000Z">
+<meta property="og:updated_time" content="2017-10-22T15:35:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Go Web Examples》中文翻译">
-<meta name="twitter:description" content="本文是GO中国社区发起翻译的文章，github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏览网页的we">
+<meta name="twitter:description" content="本文是GO中国社区发起翻译的文章，由本人翻译。github项目地址访问这里.原英文访问这里 Hello WorldIntroductionGo 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏">
 
 
 
@@ -404,7 +404,7 @@
       
 
       
-        <p>  本文是GO中国社区发起翻译的文章，github项目地址访问<a href="https://github.com/go-chinese-site/gowebexamples" target="_blank" rel="external">这里</a>.原英文访问<a href="https://gowebexamples.com/" target="_blank" rel="external">这里</a></p>
+        <p>  本文是GO中国社区发起翻译的文章，由本人翻译。github项目地址访问<a href="https://github.com/go-chinese-site/gowebexamples" target="_blank" rel="external">这里</a>.原英文访问<a href="https://gowebexamples.com/" target="_blank" rel="external">这里</a></p>
 <h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><p>Go 是一个自带干粮的编程语言，拥有自己的内置webserver.标准库中的net/http 包包含了关于HTTP协议的全部功能的函数。包中包含了一个HTTP client和 一个HTTP server . 在本例子中你将会发现成功创建一个你可以在浏览器中浏览网页的webserver是有多么简单。</p>
 <h4 id="Registering-a-Request-Handle"><a href="#Registering-a-Request-Handle" class="headerlink" title="Registering a Request Handle"></a>Registering a Request Handle</h4><p>首先，创建一个从浏览器接受进来的HTTP链接、HTTP client 或者API请求的Handler， 在Go 中是一个函数，它在创建的时候，形态上有如下相似特点<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w http.ResponseWriter, r *http.Request)</span></span></div></pre></td></tr></table></figure></p>
 <p>这个函数接受两个参数：</p>
