@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="-session," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Session开发使用总结官方网站：https://github.com/spring-projects/spring-sessionSession是一个抽象概念，开发者为了实现中断和继续操作，将user agent 和server 之间一对一的交互，抽象会“会话”，进而衍生出“会话状态”，也就是 session 的概念。Cookie是保存在客户端中，按在客户端中的存储位置，可分为内存Cookie">
+<meta name="keywords" content="-session">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Session开发使用总结">
+<meta property="og:url" content="http://yoursite.com/2018/01/20/Session开发使用总结/index.html">
+<meta property="og:site_name" content="ryanbing">
+<meta property="og:description" content="Session开发使用总结官方网站：https://github.com/spring-projects/spring-sessionSession是一个抽象概念，开发者为了实现中断和继续操作，将user agent 和server 之间一对一的交互，抽象会“会话”，进而衍生出“会话状态”，也就是 session 的概念。Cookie是保存在客户端中，按在客户端中的存储位置，可分为内存Cookie">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/p4/1516344249639.png">
+<meta property="og:image" content="http://yoursite.com/images/p4/1516344347788.png">
+<meta property="og:image" content="http://yoursite.com/images/p4/1516416249546.png">
+<meta property="og:image" content="http://yoursite.com/images/p4/1516416210393.png">
+<meta property="og:image" content="http://yoursite.com/images/p4/1516416125460.png">
+<meta property="og:updated_time" content="2018-04-19T11:27:46.210Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Session开发使用总结">
+<meta name="twitter:description" content="Session开发使用总结官方网站：https://github.com/spring-projects/spring-sessionSession是一个抽象概念，开发者为了实现中断和继续操作，将user agent 和server 之间一对一的交互，抽象会“会话”，进而衍生出“会话状态”，也就是 session 的概念。Cookie是保存在客户端中，按在客户端中的存储位置，可分为内存Cookie">
+<meta name="twitter:image" content="http://yoursite.com/images/p4/1516344249639.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/20/Session开发使用总结/"/>
+
+
+
+
+
+  <title>Session开发使用总结 | ryanbing</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ryanbing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/20/Session开发使用总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ryanbing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ryanbing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Session开发使用总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-20T19:30:00+08:00">
+                2018-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/日常开发/" itemprop="url" rel="index">
+                    <span itemprop="name">-日常开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Session开发使用总结"><a href="#Session开发使用总结" class="headerlink" title="Session开发使用总结"></a>Session开发使用总结</h2><p>官方网站：<a href="https://github.com/spring-projects/spring-session" target="_blank" rel="external">https://github.com/spring-projects/spring-session</a><br><code>Session</code>是一个抽象概念，开发者为了实现中断和继续操作，将user agent 和server 之间一对一的交互，抽象会“会话”，进而衍生出“会话状态”，也就是 session 的概念。<br><code>Cookie</code>是保存在客户端中，按在客户端中的存储位置，可分为内存Cookie和硬盘Cookie。<br>内存Cookie由浏览器维护，保存在内存中，浏览器关闭后就消失了，其存在时间是短暂的。硬盘Cookie保存在硬盘里，有一个过期时间，除非用户手工清理或到了过期时间，硬盘Cookie不会被删除，其存在时间是长期的。所以，按存在时间，可分为非持久Cookie和持久Cookie。</p>
+<p> cookie 是一个实际存在的东西，http 协议中定义在 header 中的字段。可以认为是 session 的一种后端无状态实现<br><code>客户会话状态</code>：客户每次请求时都把所有的会话数据传给服务器，服务器在每次响应时把所有的会话状态传给客户，这样的服务器可以时无状态的。<br>使用HTML时，数据传输的时候有三种方法：<code>URL参数</code>、<code>表单的隐藏</code>和<code>Cookie</code>.<br>在客户端中Cookie是可以被用户给关闭的，如果关闭了，那么就不可以支持Cookie,所以可以采用URL重写的方式。</p>
+<h3 id="Session-和-Cookie-在Java中的表现"><a href="#Session-和-Cookie-在Java中的表现" class="headerlink" title="Session 和 Cookie 在Java中的表现"></a>Session 和 Cookie 在Java中的表现</h3><p><img src="/images/p4/1516344249639.png" alt="Alt text"><br><img src="/images/p4/1516344347788.png" alt="Alt text"></p>
+<h4 id="Session-和-Cookie-的小实验"><a href="#Session-和-Cookie-的小实验" class="headerlink" title="Session 和 Cookie  的小实验"></a>Session 和 Cookie  的小实验</h4><p>Session的servlet:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.ryan.session;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpSession;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintWriter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Created by ryan</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionExample</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span></span></div><div class="line"><span class="function">            <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        resp.setContentType(<span class="string">"text/plain;charset=UTF-8"</span>);</div><div class="line">        HttpSession session = req.getSession();</div><div class="line">        <span class="keyword">if</span> (session.isNew())&#123;</div><div class="line">            session.setAttribute(<span class="string">"name"</span>, <span class="string">"ryan"</span>);</div><div class="line">            session.setAttribute(<span class="string">"site"</span>, <span class="string">"localhost.com"</span>);</div><div class="line">        &#125;</div><div class="line">        String id = session.getId();</div><div class="line"></div><div class="line">        PrintWriter out = resp.getWriter();</div><div class="line">        <span class="comment">// 如果HttpSession是新建的话</span></div><div class="line">        <span class="keyword">if</span> (session.isNew()) &#123;</div><div class="line">            out.println(<span class="string">"Hello,HttpSession! The first response - SessionId="</span> + id + <span class="string">"\n"</span>);</div><div class="line"></div><div class="line">            out.println(<span class="string">"The first-response - name: "</span></div><div class="line">                    + session.getAttribute(<span class="string">"name"</span>)+<span class="string">"-CreationTime:"</span>+session.getCreationTime()</div><div class="line">                    +<span class="string">"\n-LastAccessedTime:"</span>+session.getLastAccessedTime()</div><div class="line">                    +<span class="string">"\n-getAttributeNames:"</span>+session.getAttributeNames()</div><div class="line">                    +<span class="string">"\n-getServletContext:"</span>+session.getServletContext()</div><div class="line">            );</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            out.println(<span class="string">"Hello,HttpSession! The second response - SessionId="</span> + id + <span class="string">"\n"</span>);</div><div class="line"></div><div class="line">            out.println(<span class="string">"The second-response - name: "</span></div><div class="line">                    + session.getAttribute(<span class="string">"name"</span>)+<span class="string">"-CreationTime:"</span>+session.getCreationTime()</div><div class="line">            +<span class="string">"\n-LastAccessedTime:"</span>+session.getLastAccessedTime()</div><div class="line">            +<span class="string">"\n-getAttributeNames:"</span>+session.getAttributeNames()</div><div class="line">            +<span class="string">"\n-getServletContext:"</span>+session.getServletContext()</div><div class="line">            );</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Cookie的servlet:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.ryan.cookie;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintWriter;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Created by ryan</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CookieExample</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(<span class="keyword">final</span> HttpServletRequest request, <span class="keyword">final</span> HttpServletResponse response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        response.setContentType(<span class="string">"text/plain;charset=UTF-8"</span>);</div><div class="line">        Cookie[] cookies = request.getCookies();</div><div class="line">        <span class="comment">//get</span></div><div class="line">        PrintWriter pw = response.getWriter();</div><div class="line"></div><div class="line">        StringBuffer stringBuffer = <span class="keyword">new</span> StringBuffer();</div><div class="line">        stringBuffer.append(<span class="string">"==========================cookies length："</span>+cookies.length+<span class="string">"================\n"</span>);</div><div class="line">        stringBuffer.append(<span class="string">"===============浏览器可以传到服务端cookies变量"</span>+<span class="string">"================\n"</span>);</div><div class="line">        <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</div><div class="line">            stringBuffer.append(<span class="string">"cookie.clone()----------:"</span>+cookie.clone()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.getComment()----------:"</span>+cookie.getComment()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.getDomain()----------:"</span>+cookie.getDomain()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.getMaxAge()----------:"</span>+cookie.getMaxAge()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.getName()----------:"</span>+cookie.getName()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.getPath()----------:"</span>+cookie.getPath()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.getSecure()----------:"</span>+cookie.getSecure()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.getValue()----------:"</span>+cookie.getValue()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.getVersion()----------:"</span>+cookie.getVersion()+<span class="string">"\n"</span>);</div><div class="line">            stringBuffer.append(<span class="string">"cookie.isHttpOnly()----------:"</span>+cookie.isHttpOnly()+<span class="string">"\n"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 创建Cookie</span></div><div class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"CookieName"</span>, <span class="string">"CookieValue"</span>);</div><div class="line">        cookie.setComment(<span class="string">"this is set comment"</span>);</div><div class="line"><span class="comment">//        cookie.setDomain("localhost.com");</span></div><div class="line"><span class="comment">//        cookie.setPath("/cookie/path");</span></div><div class="line"><span class="comment">//        cookie.setSecure(true);</span></div><div class="line">        <span class="comment">//cookie.setValue("this is set value");  Assigns a new value to a cookie after the cookie is created.</span></div><div class="line">        cookie.setMaxAge(<span class="number">10</span>);</div><div class="line">        cookie.setHttpOnly(<span class="keyword">true</span>);</div><div class="line">        response.addCookie(cookie);</div><div class="line">        pw.write(String.valueOf(stringBuffer));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>配置的web.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--This is Cookie example--&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>CookieExample<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.ryan.cookie.CookieExample<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line"> <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>CookieExample<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/CookieExample<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line"></div><div class="line"> <span class="comment">&lt;!--This is Cookie example--&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>SessionExample<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.ryan.session.SessionExample<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line"> <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>SessionExample<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/SessionExample<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>启动访问结果：<br><img src="/images/p4/1516416249546.png" alt="Alt text"><br><img src="/images/p4/1516416210393.png" alt="Alt text"></p>
+<h4 id="Cookie-和-Session-的域"><a href="#Cookie-和-Session-的域" class="headerlink" title="Cookie 和 Session 的域"></a>Cookie 和 Session 的域</h4><p>对于上面的小试验，我们可以看出<code>http://localhost:8060/CookieExample</code>和<code>http://localhost:8060/SessionExample</code>两个请求的URL得到的唯一标识符是相同的(两个请求都是在同一浏览器中请求，在不同的浏览器中就不一样)。可以把这两个url规定为同一个源(origin).或者同域。如果不同域，那么就存在跨域这么一说。<br>单从请求的URL来说，没有跨域那么Cookie就是同一个, 服务器存储的也就对应一个</p>
+<blockquote>
+<p>域是通过“URL的首部”来识别, “URL的首部”指window.location.protocol +window.location.host，也可以理解为“Domains, protocols and ports must match”。</p>
+</blockquote>
+<p>也就是说，下面三种类型的URL是三个不同的域，浏览器也就会对应三个域，保存三个Cookie</p>
+<blockquote>
+<p><a href="http://192.168.1.214:19999/*" target="_blank" rel="external">http://192.168.1.214:19999/*</a><br><a href="http://192.168.1.214:80/*" target="_blank" rel="external">http://192.168.1.214:80/*</a><br><a href="https://192.168.1.214:19999/*" target="_blank" rel="external">https://192.168.1.214:19999/*</a></p>
+<h3 id="Session-和Cookie生产机制"><a href="#Session-和Cookie生产机制" class="headerlink" title="Session 和Cookie生产机制"></a>Session 和Cookie生产机制</h3><p>刚刚我们知道浏览器在第一次访问服务器时, 服务器此刻就会和你请求的客户端形成session(会话)，同时在服务端会对应生成一个sessionid.同时把服务端生成的数据(在header中)发送给请求端(浏览器)，此刻请求端根据<code>域</code>来存储这个域对应的Cookie。下面是chrome中的信息(<code>注</code>：tomcat生成的sessionid叫做jsessionid)：<br><img src="/images/p4/1516416125460.png" alt="Alt text"></p>
+<h4 id="SessionID-是怎么产生的"><a href="#SessionID-是怎么产生的" class="headerlink" title="SessionID 是怎么产生的"></a>SessionID 是怎么产生的</h4><p>我们先来看看SessionID是怎么生产的(是直接github上最新版的源码，之前版本有点区别)，首先进入tomcat在github的源码中查看<a href="https://github.com/apache/tomcat/blob/trunk/java/org/apache/catalina/session/ManagerBase.java" target="_blank" rel="external">ManagerBase</a>源码中<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> String <span class="title">generateSessionId</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    String result = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">// Not thread-safe but if one of multiple increments is lost</span></div><div class="line">            <span class="comment">// that is not a big deal since the fact that there was any</span></div><div class="line">            <span class="comment">// duplicate is a much bigger issue.</span></div><div class="line">            duplicates++;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        result = sessionIdGenerator.generateSessionId();</div><div class="line"></div><div class="line">    &#125; <span class="keyword">while</span> (sessions.containsKey(result));</div><div class="line"></div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>结果是：result = sessionIdGenerator.generateSessionId(); 生成的，之后再看generateSessionId：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public String generateSessionId() &#123;</div><div class="line">    return generateSessionId(jvmRoute);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中jvmRoute：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** Node identifier when in a cluster. Defaults to the empty string. */</span></div><div class="line"><span class="keyword">private</span> String jvmRoute = <span class="string">""</span>;</div></pre></td></tr></table></figure></p>
+<p>之后再看generateSessionId：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">generateSessionId</span><span class="params">(String route)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">byte</span> random[] = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">16</span>];</div><div class="line">    <span class="keyword">int</span> sessionIdLength = getSessionIdLength();</div><div class="line"></div><div class="line">    <span class="comment">// Render the result as a String of hexadecimal digits</span></div><div class="line">    <span class="comment">// Start with enough space for sessionIdLength and medium route size</span></div><div class="line">    StringBuilder buffer = <span class="keyword">new</span> StringBuilder(<span class="number">2</span> * sessionIdLength + <span class="number">20</span>);</div><div class="line"></div><div class="line">    <span class="keyword">int</span> resultLenBytes = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (resultLenBytes &lt; sessionIdLength) &#123;</div><div class="line">        getRandomBytes(random);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        j &lt; random.length &amp;&amp; resultLenBytes &lt; sessionIdLength;</div><div class="line">        j++) &#123;</div><div class="line">            <span class="keyword">byte</span> b1 = (<span class="keyword">byte</span>) ((random[j] &amp; <span class="number">0xf0</span>) &gt;&gt; <span class="number">4</span>);</div><div class="line">            <span class="keyword">byte</span> b2 = (<span class="keyword">byte</span>) (random[j] &amp; <span class="number">0x0f</span>);</div><div class="line">            <span class="keyword">if</span> (b1 &lt; <span class="number">10</span>)</div><div class="line">                buffer.append((<span class="keyword">char</span>) (<span class="string">'0'</span> + b1));</div><div class="line">            <span class="keyword">else</span></div><div class="line">                buffer.append((<span class="keyword">char</span>) (<span class="string">'A'</span> + (b1 - <span class="number">10</span>)));</div><div class="line">            <span class="keyword">if</span> (b2 &lt; <span class="number">10</span>)</div><div class="line">                buffer.append((<span class="keyword">char</span>) (<span class="string">'0'</span> + b2));</div><div class="line">            <span class="keyword">else</span></div><div class="line">                buffer.append((<span class="keyword">char</span>) (<span class="string">'A'</span> + (b2 - <span class="number">10</span>)));</div><div class="line">            resultLenBytes++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (route != <span class="keyword">null</span> &amp;&amp; route.length() &gt; <span class="number">0</span>) &#123;</div><div class="line">        buffer.append(<span class="string">'.'</span>).append(route);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        String jvmRoute = getJvmRoute();</div><div class="line">        <span class="keyword">if</span> (jvmRoute != <span class="keyword">null</span> &amp;&amp; jvmRoute.length() &gt; <span class="number">0</span>) &#123;</div><div class="line">            buffer.append(<span class="string">'.'</span>).append(jvmRoute);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> buffer.toString();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>因为我再实验的是用的是tomcat8所以在生成SessionID的时候有点不一样，下面是sessionID的生产的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">generateSessionId</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">byte</span> random[] = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">16</span>];</div><div class="line"></div><div class="line">    <span class="comment">// Render the result as a String of hexadecimal digits</span></div><div class="line">    StringBuilder buffer = <span class="keyword">new</span> StringBuilder();</div><div class="line"></div><div class="line">    <span class="keyword">int</span> resultLenBytes = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (resultLenBytes &lt; sessionIdLength) &#123;</div><div class="line">        getRandomBytes(random);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        j &lt; random.length &amp;&amp; resultLenBytes &lt; sessionIdLength;</div><div class="line">        j++) &#123;</div><div class="line">            <span class="keyword">byte</span> b1 = (<span class="keyword">byte</span>) ((random[j] &amp; <span class="number">0xf0</span>) &gt;&gt; <span class="number">4</span>);</div><div class="line">            <span class="keyword">byte</span> b2 = (<span class="keyword">byte</span>) (random[j] &amp; <span class="number">0x0f</span>);</div><div class="line">            <span class="keyword">if</span> (b1 &lt; <span class="number">10</span>)</div><div class="line">                buffer.append((<span class="keyword">char</span>) (<span class="string">'0'</span> + b1));</div><div class="line">            <span class="keyword">else</span></div><div class="line">                buffer.append((<span class="keyword">char</span>) (<span class="string">'A'</span> + (b1 - <span class="number">10</span>)));</div><div class="line">            <span class="keyword">if</span> (b2 &lt; <span class="number">10</span>)</div><div class="line">                buffer.append((<span class="keyword">char</span>) (<span class="string">'0'</span> + b2));</div><div class="line">            <span class="keyword">else</span></div><div class="line">                buffer.append((<span class="keyword">char</span>) (<span class="string">'A'</span> + (b2 - <span class="number">10</span>)));</div><div class="line">            resultLenBytes++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (jvmRoute != <span class="keyword">null</span> &amp;&amp; jvmRoute.length() &gt; <span class="number">0</span>) &#123;</div><div class="line">        buffer.append(<span class="string">'.'</span>).append(jvmRoute);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> buffer.toString();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们可以产生如下总结：</p>
+<blockquote>
+<p>sessionid产生方法：随机数+时间+jvm路径<br>其中时间是在getRandomBytes产生随机数的时候加入的</p>
+</blockquote>
+<p>对于SessionId的生命周期篇幅就有点大了，下次陈述</p>
+<h3 id="前后分离中的Cookie-和Session"><a href="#前后分离中的Cookie-和Session" class="headerlink" title="前后分离中的Cookie 和Session"></a>前后分离中的Cookie 和Session</h3><p>对于前后分离，因为前后分开部署，所以最起码端口号是不一样的。所以会出现了<code>跨域</code>。这就需要通过<a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank" rel="external">跨域资源共享</a>来实现session的共享。下面来简述如何实现跨域共享,同时请求和回应的参数如下：</p>
+<h4 id="前端传递参数"><a href="#前端传递参数" class="headerlink" title="前端传递参数"></a>前端传递参数</h4><p>前端在发送请求的时候，需要设置：<code>Access-Control-Allow-Credentials: true</code>.目的是跨域的时候，让浏览器发送Cookie 到服务器(CORS请求默认是不发送Cookie和HTTP认证信息), 如下就是一个jq发送ajax请求时，带上需要的参数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">	type: <span class="string">"POST"</span>,</div><div class="line">	url: <span class="string">"post_url"</span>,</div><div class="line">	dataType: <span class="string">'json'</span>,</div><div class="line">	data: &#123;</div><div class="line">		id: <span class="number">100</span></div><div class="line">	&#125;,</div><div class="line">	xhrFields: &#123;</div><div class="line">		withCredentials: <span class="literal">true</span></div><div class="line">	&#125;,</div><div class="line">	success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"返回的数据: "</span> + data);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h4 id="后端设置参数"><a href="#后端设置参数" class="headerlink" title="后端设置参数"></a>后端设置参数</h4><p>后端设置设置参数也就是<code>服务器</code>回应的其他CORS相关字段.<br><strong>Request headers</strong></p>
+<ul>
+<li>Origin   // 跨域请求的地址</li>
+<li>Access-Control-Request-Method // 请求方法</li>
+<li>Access-Control-Request-Headers // Headers</li>
+</ul>
+<p><strong>Response headers</strong></p>
+<ul>
+<li>Access-Control-Allow-Origin    // 允许返回的域名</li>
+<li>Access-Control-Allow-Credentials </li>
+<li>Access-Control-Expose-Headers // 列出了哪些首部可以作为响应的一部分暴露给外部。</li>
+<li>Access-Control-Max-Age // 可以被缓存多久(单位秒)</li>
+<li>Access-Control-Allow-Methods</li>
+<li>Access-Control-Allow-Headers<blockquote>
+<p>上面字段具体含义可以参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Expose-Headers" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Expose-Headers</a></p>
+</blockquote>
+</li>
+</ul>
+<p>所以服务器端对于需要跨域资源共享的请求，要做一些上面的处理。下面贴出两种常用的方式。</p>
+<h5 id="方式1-Spring框架提供的跨域CorsConfiguration"><a href="#方式1-Spring框架提供的跨域CorsConfiguration" class="headerlink" title="方式1:Spring框架提供的跨域CorsConfiguration"></a>方式1:Spring框架提供的跨域CorsConfiguration</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</div><div class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</div><div class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</div><div class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</div><div class="line"></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> CorsConfiguration <span class="title">buildConfig</span><span class="params">()</span> </span>&#123;</div><div class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</div><div class="line">        corsConfiguration.addAllowedOrigin(<span class="string">"*"</span>); <span class="comment">// 1</span></div><div class="line">        corsConfiguration.addAllowedHeader(<span class="string">"*"</span>); <span class="comment">// 2</span></div><div class="line">        corsConfiguration.addAllowedMethod(<span class="string">"*"</span>); <span class="comment">// 3</span></div><div class="line">        <span class="keyword">return</span> corsConfiguration;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">()</span> </span>&#123;</div><div class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</div><div class="line">        source.registerCorsConfiguration(<span class="string">"/**"</span>, buildConfig()); <span class="comment">// 4</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="方式2-filter层进行请求拦截"><a href="#方式2-filter层进行请求拦截" class="headerlink" title="方式2:filter层进行请求拦截"></a>方式2:filter层进行请求拦截</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.*;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 解决跨域问题</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span> ryan</span></div><div class="line"><span class="comment"> **/</span></div><div class="line"></div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CORSFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse res, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</div><div class="line">        HttpServletResponse response = (HttpServletResponse) res;</div><div class="line"></div><div class="line">        HttpServletRequest reqs = (HttpServletRequest) req;</div><div class="line"></div><div class="line">        response.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>,reqs.getHeader(<span class="string">"Origin"</span>));</div><div class="line">        response.setHeader(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>);</div><div class="line">        response.setHeader(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"POST, GET, OPTIONS, DELETE"</span>);</div><div class="line">        response.setHeader(<span class="string">"Access-Control-Max-Age"</span>, <span class="string">"3600"</span>);</div><div class="line">        response.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"x-requested-with"</span>);</div><div class="line">        chain.doFilter(req, res);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> </span>&#123;&#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##<br><a href="http://blog.csdn.net/patrickyoung6625/article/details/45694157" target="_blank" rel="external">http://blog.csdn.net/patrickyoung6625/article/details/45694157</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/session/" rel="tag"># -session</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/22/GoWebExamples中文翻译/" rel="next" title="《Go Web Examples》中文翻译">
+                <i class="fa fa-chevron-left"></i> 《Go Web Examples》中文翻译
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/21/git协作加强/" rel="prev" title="git协作加强">
+                git协作加强 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="ryanbing" />
+          <p class="site-author-name" itemprop="name">ryanbing</p>
+           
+              <p class="site-description motion-element" itemprop="description">ryanbing's blog</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/legotime" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Session开发使用总结"><span class="nav-number">1.</span> <span class="nav-text">Session开发使用总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Session-和-Cookie-在Java中的表现"><span class="nav-number">1.1.</span> <span class="nav-text">Session 和 Cookie 在Java中的表现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Session-和-Cookie-的小实验"><span class="nav-number">1.1.1.</span> <span class="nav-text">Session 和 Cookie  的小实验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie-和-Session-的域"><span class="nav-number">1.1.2.</span> <span class="nav-text">Cookie 和 Session 的域</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session-和Cookie生产机制"><span class="nav-number">1.2.</span> <span class="nav-text">Session 和Cookie生产机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SessionID-是怎么产生的"><span class="nav-number">1.2.1.</span> <span class="nav-text">SessionID 是怎么产生的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前后分离中的Cookie-和Session"><span class="nav-number">1.3.</span> <span class="nav-text">前后分离中的Cookie 和Session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前端传递参数"><span class="nav-number">1.3.1.</span> <span class="nav-text">前端传递参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后端设置参数"><span class="nav-number">1.3.2.</span> <span class="nav-text">后端设置参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#方式1-Spring框架提供的跨域CorsConfiguration"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">方式1:Spring框架提供的跨域CorsConfiguration</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方式2-filter层进行请求拦截"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">方式2:filter层进行请求拦截</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ryanbing</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
