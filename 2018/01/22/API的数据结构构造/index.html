@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="-浅析Java Restful API的数据结构构造," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="浅析Java Restful API的数据结构构造下面从java的基本类型、引用类型以及一些常用数据结构出发，实验了各自的返回结果。同时给出了一些常用的日常封装。 数据类型基本数据类型(byte, short,char, int, long, float, double, boolean) 返回的都是一个值，比如  123  基本数据类型123456789101112131415161718192">
+<meta name="keywords" content="-浅析Java Restful API的数据结构构造">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析Java Restful API的数据结构构造">
+<meta property="og:url" content="http://yoursite.com/2018/01/22/API的数据结构构造/index.html">
+<meta property="og:site_name" content="ryanbing">
+<meta property="og:description" content="浅析Java Restful API的数据结构构造下面从java的基本类型、引用类型以及一些常用数据结构出发，实验了各自的返回结果。同时给出了一些常用的日常封装。 数据类型基本数据类型(byte, short,char, int, long, float, double, boolean) 返回的都是一个值，比如  123  基本数据类型123456789101112131415161718192">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-22T14:41:22.233Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析Java Restful API的数据结构构造">
+<meta name="twitter:description" content="浅析Java Restful API的数据结构构造下面从java的基本类型、引用类型以及一些常用数据结构出发，实验了各自的返回结果。同时给出了一些常用的日常封装。 数据类型基本数据类型(byte, short,char, int, long, float, double, boolean) 返回的都是一个值，比如  123  基本数据类型123456789101112131415161718192">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/22/API的数据结构构造/"/>
+
+
+
+
+
+  <title>浅析Java Restful API的数据结构构造 | ryanbing</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ryanbing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/22/API的数据结构构造/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ryanbing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ryanbing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析Java Restful API的数据结构构造</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T19:30:00+08:00">
+                2018-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">-java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="浅析Java-Restful-API的数据结构构造"><a href="#浅析Java-Restful-API的数据结构构造" class="headerlink" title="浅析Java Restful API的数据结构构造"></a>浅析Java Restful API的数据结构构造</h2><p>下面从java的基本类型、引用类型以及一些常用数据结构出发，实验了各自的返回结果。同时给出了一些常用的日常封装。</p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>基本数据类型(byte, short,char, int, long, float, double, boolean) 返回的都是一个值，比如</p>
+<blockquote>
+<p>123</p>
+</blockquote>
+<h4 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/basic"</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * byte 数据类型是8位、有符号的，以二进制补码表示的整数</span></div><div class="line"><span class="comment">     * 最小值是 -128（-2^7), 最大值是 127（2^7-1), 默认为0</span></div><div class="line"><span class="comment">     *  byte 变量占用的空间只有 int 类型的四分之一</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/byte"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">byte</span> <span class="title">getByte</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">byte</span> res = Byte.MAX_VALUE;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * short 数据类型是 16 位、有符号的以二进制补码表示的整数</span></div><div class="line"><span class="comment">     * 最小值是 -32768（-2^15）最大值是 32767（2^15 - 1</span></div><div class="line"><span class="comment">     * short变量是int型变量所占空间的二分之一</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/short"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">short</span> <span class="title">getShort</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">short</span> res = Short.MAX_VALUE;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * int 数据类型是32位、有符号的以二进制补码表示的整数</span></div><div class="line"><span class="comment">     * 最小值是 -2,147,483,648（-2^31）, 最大值是 2,147,483,647（2^31 - 1）</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/int"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get_int</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> res = Integer.MAX_VALUE;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * long 数据类型是 64 位、有符号的以二进制补码表示的整数</span></div><div class="line"><span class="comment">     * 最小值是 -9,223,372,036,854,775,808（-2^63）</span></div><div class="line"><span class="comment">     * 最大值是 9,223,372,036,854,775,807（2^63 -1）</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/long"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">get_long</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">long</span> res = Long.MAX_VALUE;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * float 数据类型是单精度、32位、符合IEEE 754标准的浮点数</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/float"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">get_float</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">float</span> res = Float.MAX_VALUE;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * double 数据类型是双精度、64 位、符合IEEE 754标准的浮点数</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/double"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">get_double</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">double</span> res = Double.MIN_VALUE;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/boolean"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">get_boolean</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> res = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * char类型是一个单一的 16 位 Unicode 字符</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/char"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">get_char</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">char</span> res = Character.MAX_VALUE;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>返回值，分别为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">127</div><div class="line">32767</div><div class="line">2147483647</div><div class="line">9223372036854775807</div><div class="line">3.4028235e+38</div><div class="line">5e-324</div><div class="line">false</div><div class="line">&quot;￿&quot;</div></pre></td></tr></table></figure></p>
+<h4 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h4><p>引用数据类型包含了<code>类(class)</code>,<code>接口(interface)</code>, <code>数组(array)</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Author</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> String ID;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Author</span><span class="params">(String name, String ID)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.ID = ID;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// get set</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Integer id;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> String bookname;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Author author;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">(Integer id, String bookname, Author author)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">        <span class="keyword">this</span>.bookname = bookname;</div><div class="line">        <span class="keyword">this</span>.author = author;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// </span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iaction</span> </span>&#123;</div><div class="line">    <span class="function">String <span class="title">getString</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IactionImpl</span> <span class="keyword">implements</span> <span class="title">Iaction</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"this is IactionImpl method"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iaction2</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function">String <span class="title">getString1</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="function">String <span class="title">getString2</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Iaction2Impl</span> <span class="keyword">implements</span> <span class="title">Iaction2</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getString1</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"this is getString1"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getString2</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"this is getString1"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Controller 层</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">@RequestMapping(value = &quot;/reference&quot;)</div><div class="line">@RestController</div><div class="line">public class Reference &#123;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/class/book&quot;)</div><div class="line">    public Book getBook() &#123;</div><div class="line">        Author ryan = new Author(&quot;ryan&quot;, &quot;001&quot;);</div><div class="line">        Book book = new Book(1, &quot;java入门到放弃&quot;, ryan);</div><div class="line">        return book;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/interface/action&quot;)</div><div class="line">    public Iaction getAction() &#123;</div><div class="line">        Iaction iaction = new IactionImpl();</div><div class="line">        return iaction;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/interface/action2&quot;)</div><div class="line">    public Iaction2 getAction2() &#123;</div><div class="line">        Iaction2 iaction = new Iaction2Impl();</div><div class="line">        return iaction;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @RequestMapping(value = &quot;/array/strings&quot;)</div><div class="line">    public String[] getStringArray() &#123;</div><div class="line">        String[] strings = new String[3];</div><div class="line">        strings[0] = &quot;are&quot;;</div><div class="line">        strings[1] = &quot;you&quot;;</div><div class="line">        strings[2] = &quot;ok&quot;;</div><div class="line">        return strings;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>req:<br><a href="http://localhost:8080/reference/class/book" target="_blank" rel="external">http://localhost:8080/reference/class/book</a></p>
+</blockquote>
+<p>返回值：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">"bookname"</span>: <span class="string">"java入门到放弃"</span>,</div><div class="line">    <span class="attr">"author"</span>: &#123;</div><div class="line">        <span class="attr">"name"</span>: <span class="string">"ryan"</span>,</div><div class="line">        <span class="attr">"id"</span>: <span class="string">"001"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>req:<br><a href="http://localhost:8080/reference/interface/action" target="_blank" rel="external">http://localhost:8080/reference/interface/action</a></p>
+</blockquote>
+<p>返回值：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"string"</span>: <span class="string">"this is IactionImpl method"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>req:<br><a href="http://localhost:8080/reference/interface/action2" target="_blank" rel="external">http://localhost:8080/reference/interface/action2</a></p>
+</blockquote>
+<p>返回值</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"string1"</span>: <span class="string">"this is getString1"</span>,</div><div class="line">    <span class="attr">"string2"</span>: <span class="string">"this is getString1"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>req:<br><a href="http://localhost:8080/reference/array/strings" target="_blank" rel="external">http://localhost:8080/reference/array/strings</a></p>
+</blockquote>
+<p>返回值：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line"><span class="string">"are"</span>,</div><div class="line"><span class="string">"you"</span>,</div><div class="line"><span class="string">"ok"</span></div><div class="line">]</div></pre></td></tr></table></figure>
+<p>总结：</p>
+<p><code>class</code>: 是以<code>{}</code>作为一个对象的包装，key 是pojo 的定义的域(field), value 是注入的值。如果对象中有对象，那么就形成了json 包含 json</p>
+<p><code>interface</code>: 是以<code>{}</code>作为一个对象的包装, <code>但是要注意方法的名字必须是  getXXXX, 如果其他的就会报错</code>， key 是 定义接口方法名字getXXXX 中的XXXX ， value 是实现方法的返回值<br><code>数组</code>：是以<code>[]</code>作为一个对象的包装, 也对应者json 中的数组表达</p>
+<h4 id="collection"><a href="#collection" class="headerlink" title="collection"></a>collection</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.ryan.restfulapi.datatype;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 集合类的根接口: Connection(interface)包含: 包含Set(interface)、包含List(interface)、包含Queue(interface)</span></div><div class="line"><span class="comment"> * &lt;p&gt;</span></div><div class="line"><span class="comment"> * Set(interface):HashSet、LinkedHashSet、TreesSet(SortedSet实现类)</span></div><div class="line"><span class="comment"> * 三种区别简述：</span></div><div class="line"><span class="comment"> * 同：Set 不允许有想通元素</span></div><div class="line"><span class="comment"> * 异：HashSet 元素顺序有可能变化，LinkedHashSet顺序是插入时顺序，</span></div><div class="line"><span class="comment"> * TreeSet(SortedSet接口的唯一实现类),已经(通过自然排序和定制排序, 默认自然排序)排序</span></div><div class="line"><span class="comment"> * List(interface)：ArrayList、Vector(Stack)、 LinkedList</span></div><div class="line"><span class="comment"> * 三种区别简述：</span></div><div class="line"><span class="comment"> * 同：元素有序、允许有重复的元素</span></div><div class="line"><span class="comment"> * 异：Vector线程同步，ArrayList、LinkedList线程不同步</span></div><div class="line"><span class="comment"> * Vector与ArrayList是通过数组实现的，LinkedList是用链表结构</span></div><div class="line"><span class="comment"> * &lt;p&gt;</span></div><div class="line"><span class="comment"> * &lt;p&gt;</span></div><div class="line"><span class="comment"> * Queue(interface): LinkedList、PriorityQueue</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span> ryan</span></div><div class="line"><span class="comment"> **/</span></div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/collection"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">collection</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/Set/HashSet"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> HashSet <span class="title">getHashSet</span><span class="params">()</span> </span>&#123;</div><div class="line">        HashSet&lt;String&gt; res = <span class="keyword">new</span> HashSet&lt;&gt;();</div><div class="line">        res.add(<span class="string">"are"</span>);</div><div class="line">        res.add(<span class="string">"you"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/Set/LinkedHashSet"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> LinkedHashSet <span class="title">getLinkedHashSet</span><span class="params">()</span> </span>&#123;</div><div class="line">        LinkedHashSet&lt;String&gt; res = <span class="keyword">new</span> LinkedHashSet&lt;&gt;();</div><div class="line">        res.add(<span class="string">"are"</span>);</div><div class="line">        res.add(<span class="string">"you"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/Set/TreeSet"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeSet <span class="title">getTreeSet</span><span class="params">()</span> </span>&#123;</div><div class="line">        TreeSet&lt;Object&gt; res = <span class="keyword">new</span> TreeSet&lt;&gt;();</div><div class="line">        res.add(<span class="string">"are"</span>);</div><div class="line">        res.add(<span class="string">"you"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/List/ArrayList"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> ArrayList <span class="title">getArrayList</span><span class="params">()</span> </span>&#123;</div><div class="line">        ArrayList&lt;String&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        res.add(<span class="string">"are"</span>);</div><div class="line">        res.add(<span class="string">"you"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/List/LinkedList"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> LinkedList <span class="title">getLinkedList</span><span class="params">()</span> </span>&#123;</div><div class="line">        LinkedList&lt;Object&gt; res = <span class="keyword">new</span> LinkedList&lt;&gt;();</div><div class="line">        res.add(<span class="string">"are"</span>);</div><div class="line">        res.add(<span class="string">"you"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/Queue/PriorityQueue"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> PriorityQueue <span class="title">getPriorityQueue</span><span class="params">()</span> </span>&#123;</div><div class="line">        PriorityQueue&lt;Object&gt; res = <span class="keyword">new</span> PriorityQueue&lt;&gt;();</div><div class="line">        res.add(<span class="string">"are"</span>);</div><div class="line">        res.add(<span class="string">"you"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        res.add(<span class="string">"ok"</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>返回数据结构：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line"><span class="string">"are"</span>,</div><div class="line"><span class="string">"ok"</span>,</div><div class="line"><span class="string">"you"</span></div><div class="line">]</div><div class="line">[</div><div class="line"><span class="string">"are"</span>,</div><div class="line"><span class="string">"ok"</span>,</div><div class="line"><span class="string">"you"</span></div><div class="line">]</div><div class="line"></div><div class="line">[</div><div class="line"><span class="string">"are"</span>,</div><div class="line"><span class="string">"ok"</span>,</div><div class="line"><span class="string">"you"</span></div><div class="line">]</div><div class="line">[</div><div class="line"><span class="string">"are"</span>,</div><div class="line"><span class="string">"you"</span>,</div><div class="line"><span class="string">"ok"</span>,</div><div class="line"><span class="string">"ok"</span></div><div class="line">]</div><div class="line">[</div><div class="line"><span class="string">"are"</span>,</div><div class="line"><span class="string">"you"</span>,</div><div class="line"><span class="string">"ok"</span>,</div><div class="line"><span class="string">"ok"</span></div><div class="line">]</div><div class="line">[</div><div class="line"><span class="string">"are"</span>,</div><div class="line"><span class="string">"ok"</span>,</div><div class="line"><span class="string">"ok"</span>,</div><div class="line"><span class="string">"you"</span></div><div class="line">]</div></pre></td></tr></table></figure>
+<h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><p>Map接口中键和值一一映射. 可以通过键来获取值<br>具体访问<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html" target="_blank" rel="external">Map官方Doc</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.ryan.restfulapi.datatype;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.ryan.restfulapi.pojo.Author;</div><div class="line"><span class="keyword">import</span> com.ryan.restfulapi.pojo.Book;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.Hashtable;</div><div class="line"><span class="keyword">import</span> java.util.LinkedHashMap;</div><div class="line"><span class="keyword">import</span> java.util.TreeMap;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * <span class="doctag">@author</span> ryan</span></div><div class="line"><span class="comment"> * HashTable(用ConcurrentHashMap去代替)、LinkedHashMap、HashMap、TreeMap</span></div><div class="line"><span class="comment"> * HashTable： 别用、用ConcurrentHashMap 代替：Hashtable的实现中，大量使用了%，而不是HashMap中的位运算</span></div><div class="line"><span class="comment"> * LinkedHashMap:Key和Value都允许空、有序，非线程安全</span></div><div class="line"><span class="comment"> **/</span></div><div class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/map"</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">map</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/Hashtable"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Hashtable <span class="title">getHashtable</span><span class="params">()</span> </span>&#123;</div><div class="line">        Hashtable&lt;String, Object&gt; res = <span class="keyword">new</span> Hashtable&lt;&gt;();</div><div class="line">        Author ryan = <span class="keyword">new</span> Author(<span class="string">"ryan"</span>, <span class="string">"001"</span>);</div><div class="line">        Book book = <span class="keyword">new</span> Book(<span class="number">1</span>, <span class="string">"java入门到放弃"</span>, ryan);</div><div class="line">        res.put(<span class="string">"Hashtable_key"</span>, <span class="string">"Hashtable_value"</span>);</div><div class="line">        res.put(<span class="string">"book"</span>, book);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/LinkedHashMap"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> LinkedHashMap <span class="title">getLinkedHashMap</span><span class="params">()</span> </span>&#123;</div><div class="line">        LinkedHashMap&lt;String, Object&gt; res = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</div><div class="line">        Author ryan = <span class="keyword">new</span> Author(<span class="string">"ryan"</span>, <span class="string">"001"</span>);</div><div class="line">        Book book = <span class="keyword">new</span> Book(<span class="number">1</span>, <span class="string">"java入门到放弃"</span>, ryan);</div><div class="line">        res.put(<span class="string">"Hashtable_key"</span>, <span class="string">"Hashtable_value"</span>);</div><div class="line">        res.put(<span class="string">"book"</span>, book);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/hashmap"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> HashMap <span class="title">getHashMap</span><span class="params">()</span> </span>&#123;</div><div class="line">        HashMap&lt;String, Object&gt; res = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        Author ryan = <span class="keyword">new</span> Author(<span class="string">"ryan"</span>, <span class="string">"001"</span>);</div><div class="line">        Book book = <span class="keyword">new</span> Book(<span class="number">1</span>, <span class="string">"java入门到放弃"</span>, ryan);</div><div class="line">        res.put(<span class="string">"Hashtable_key"</span>, <span class="string">"Hashtable_value"</span>);</div><div class="line">        res.put(<span class="string">"book"</span>, book);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/treemap"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> TreeMap <span class="title">getTreeMap</span><span class="params">()</span> </span>&#123;</div><div class="line">        TreeMap&lt;String, Object&gt; res = <span class="keyword">new</span> TreeMap&lt;&gt;();</div><div class="line">        Author ryan = <span class="keyword">new</span> Author(<span class="string">"ryan"</span>, <span class="string">"001"</span>);</div><div class="line">        Book book = <span class="keyword">new</span> Book(<span class="number">1</span>, <span class="string">"java入门到放弃"</span>, ryan);</div><div class="line">        res.put(<span class="string">"Hashtable_key"</span>, <span class="string">"Hashtable_value"</span>);</div><div class="line">        res.put(<span class="string">"book"</span>, book);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>返回分别为：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"book"</span>: &#123;</div><div class="line">        <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">        <span class="attr">"bookname"</span>: <span class="string">"java入门到放弃"</span>,</div><div class="line">        <span class="attr">"author"</span>: &#123;</div><div class="line">            <span class="attr">"name"</span>: <span class="string">"ryan"</span>,</div><div class="line">            <span class="attr">"id"</span>: <span class="string">"001"</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"Hashtable_key"</span>: <span class="string">"Hashtable_value"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#123;</div><div class="line">    <span class="attr">"Hashtable_key"</span>: <span class="string">"Hashtable_value"</span>,</div><div class="line">    <span class="attr">"book"</span>: &#123;</div><div class="line">        <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">        <span class="attr">"bookname"</span>: <span class="string">"java入门到放弃"</span>,</div><div class="line">        <span class="attr">"author"</span>: &#123;</div><div class="line">            <span class="attr">"name"</span>: <span class="string">"ryan"</span>,</div><div class="line">            <span class="attr">"id"</span>: <span class="string">"001"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#123;</div><div class="line">    <span class="attr">"book"</span>: &#123;</div><div class="line">        <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">        <span class="attr">"bookname"</span>: <span class="string">"java入门到放弃"</span>,</div><div class="line">        <span class="attr">"author"</span>: &#123;</div><div class="line">            <span class="attr">"name"</span>: <span class="string">"ryan"</span>,</div><div class="line">            <span class="attr">"id"</span>: <span class="string">"001"</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"Hashtable_key"</span>: <span class="string">"Hashtable_value"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#123;</div><div class="line">    <span class="attr">"Hashtable_key"</span>: <span class="string">"Hashtable_value"</span>,</div><div class="line">    <span class="attr">"book"</span>: &#123;</div><div class="line">        <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">        <span class="attr">"bookname"</span>: <span class="string">"java入门到放弃"</span>,</div><div class="line">        <span class="attr">"author"</span>: &#123;</div><div class="line">            <span class="attr">"name"</span>: <span class="string">"ryan"</span>,</div><div class="line">            <span class="attr">"id"</span>: <span class="string">"001"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">结构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">基本数据类型((byte, short,char, int, long, float, double, boolean))</td>
+<td style="text-align:center">单个值</td>
+</tr>
+<tr>
+<td style="text-align:center">引用数据类型((class) 接口(interface))</td>
+<td style="text-align:center"><code>{}</code> 封装，key 是 结构field, value 是对应的值</td>
+</tr>
+<tr>
+<td style="text-align:center">引用数据类型(数组(array))</td>
+<td style="text-align:center"><code>[]</code> 封装, 值是数据结构中的值</td>
+</tr>
+<tr>
+<td style="text-align:center">collection(Set、List、Queue的实现类)</td>
+<td style="text-align:center"><code>[]</code> 封装, 值是数据结构中的值</td>
+</tr>
+<tr>
+<td style="text-align:center">map(map的实现类)</td>
+<td style="text-align:center"><code>{}</code> 封装，key 是 map 对应的key, value 是map对应的value</td>
+</tr>
+</tbody>
+</table>
+<h3 id="几个开发者常用封装"><a href="#几个开发者常用封装" class="headerlink" title="几个开发者常用封装"></a>几个开发者常用封装</h3><p>对于restful 接口的封装，常用的就是<code>HashMap</code>或者是<code>类中包含其他的类</code>。同时为了简单调用往往采用静态方法。</p>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> ResponseCode &#123;</div><div class="line">    SUCCESS(<span class="number">0</span>,<span class="string">"SUCCESS"</span>),</div><div class="line">    ERROR(<span class="number">1</span>,<span class="string">"ERROR"</span>),</div><div class="line">    NEED_LOGIN(<span class="number">10</span>,<span class="string">"NEED_LOGIN"</span>),</div><div class="line">    INADEQUATE_PERMISSIONS(<span class="number">104</span>, <span class="string">"INADEQUATE_PERMISSIONS"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> code;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String desc;</div><div class="line"></div><div class="line"></div><div class="line">    ResponseCode(<span class="keyword">int</span> code,String desc)&#123;</div><div class="line">        <span class="keyword">this</span>.code = code;</div><div class="line">        <span class="keyword">this</span>.desc = desc;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCode</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> code;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDesc</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> desc;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonIgnore;</div><div class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.annotation.JsonSerialize;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.Serializable;</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@JsonSerialize</span>(include =  JsonSerialize.Inclusion.NON_NULL)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResponseResult</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> status;</div><div class="line">    <span class="keyword">private</span> String msg;</div><div class="line">    <span class="keyword">private</span> T data;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ResponseResult</span><span class="params">(<span class="keyword">int</span> status)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.status = status;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ResponseResult</span><span class="params">(<span class="keyword">int</span> status,T data)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.status = status;</div><div class="line">        <span class="keyword">this</span>.data = data;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ResponseResult</span><span class="params">(<span class="keyword">int</span> status,String msg,T data)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.status = status;</div><div class="line">        <span class="keyword">this</span>.msg = msg;</div><div class="line">        <span class="keyword">this</span>.data = data;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ResponseResult</span><span class="params">(<span class="keyword">int</span> status,String msg)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.status = status;</div><div class="line">        <span class="keyword">this</span>.msg = msg;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@JsonIgnore</span></div><div class="line">    <span class="comment">// 使之不在json序列化结果当中</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSuccess</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.status == ResponseCode.SUCCESS.getCode();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> status;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> data;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMsg</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> msg;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ResponseResult&lt;T&gt; <span class="title">createBySuccess</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;T&gt;(ResponseCode.SUCCESS.getCode());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ResponseResult&lt;T&gt; <span class="title">createBySuccessMessage</span><span class="params">(String msg)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;T&gt;(ResponseCode.SUCCESS.getCode(),msg);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ResponseResult&lt;T&gt; <span class="title">createBySuccess</span><span class="params">(T data)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;T&gt;(ResponseCode.SUCCESS.getCode(),data);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ResponseResult&lt;T&gt; <span class="title">createBySuccess</span><span class="params">(String msg,T data)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;T&gt;(ResponseCode.SUCCESS.getCode(),msg,data);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ResponseResult&lt;T&gt; <span class="title">createByError</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;T&gt;(ResponseCode.ERROR.getCode(),ResponseCode.ERROR.getDesc());</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ResponseResult&lt;T&gt; <span class="title">createByErrorMessage</span><span class="params">(String errorMessage)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;T&gt;(ResponseCode.ERROR.getCode(),errorMessage);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ResponseResult&lt;T&gt; <span class="title">createByErrorCodeMessage</span><span class="params">(<span class="keyword">int</span> errorCode,String errorMessage)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResponseResult&lt;T&gt;(errorCode,errorMessage);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"ResponseResult&#123;"</span> +</div><div class="line">                <span class="string">"status="</span> + status +</div><div class="line">                <span class="string">", msg='"</span> + msg + <span class="string">'\''</span> +</div><div class="line">                <span class="string">", data="</span> + data +</div><div class="line">                <span class="string">'&#125;'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="多层数据结构"><a href="#多层数据结构" class="headerlink" title="多层数据结构"></a>多层数据结构</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResponseResultMap</span></span>&#123;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ResponseResult&lt;HashMap&lt;String, Object&gt;&gt; createByList(Object value) &#123;</div><div class="line">        HashMap&lt;String, Object&gt; res = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">1</span>);</div><div class="line">        res.put(<span class="string">"list"</span>, value);</div><div class="line">        <span class="keyword">return</span> ResponseResult.createBySuccess(res);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ResponseResult&lt;HashMap&lt;String, Object&gt;&gt; createByKV(String key, Object value) &#123;</div><div class="line">        HashMap&lt;String, Object&gt; res = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">1</span>);</div><div class="line">        res.put(key, value);</div><div class="line">        <span class="keyword">return</span> ResponseResult.createBySuccess(res);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ResponseResult <span class="title">createByHashMap</span><span class="params">(HashMap&lt;String, Object&gt; hashMap)</span> </span>&#123;</div><div class="line">        HashMap&lt;String, Object&gt; res = <span class="keyword">new</span> HashMap&lt;String, Object&gt;(<span class="number">3</span>);</div><div class="line">        res.putAll(hashMap);</div><div class="line">        <span class="keyword">return</span> ResponseResult.createBySuccess(res);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="制表"><a href="#制表" class="headerlink" title="制表"></a>制表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * echart 返回的制表类型</div><div class="line"> *</div><div class="line"> * @author ryan create on 2018/3/26</div><div class="line"> **/</div><div class="line">@JsonSerialize(include =  JsonSerialize.Inclusion.NON_NULL)</div><div class="line">public class EchartVO implements Serializable &#123;</div><div class="line">    private List&lt;String&gt; legend;</div><div class="line">    private List&lt;String&gt; xAxis;</div><div class="line">    private List&lt;String&gt; yAxis;</div><div class="line"></div><div class="line">    public EchartVO(List&lt;String&gt; legend, List&lt;String&gt; xAxis, List&lt;String&gt; yAxis) &#123;</div><div class="line">        this.legend = legend;</div><div class="line">        this.xAxis = xAxis;</div><div class="line">        this.yAxis = yAxis;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;EchartVO&#123;&quot; +</div><div class="line">                &quot;legend=&quot; + legend +</div><div class="line">                &quot;, xAxis=&quot; + xAxis +</div><div class="line">                &quot;, yAxis=&quot; + yAxis +</div><div class="line">                &apos;&#125;&apos;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static EchartVOBuilder builder()&#123;</div><div class="line">        return new EchartVOBuilder();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    public static class EchartVOBuilder&#123;</div><div class="line">        private List&lt;String&gt; legend;</div><div class="line">        private List&lt;String&gt; xAxis;</div><div class="line">        private List&lt;String&gt; yAxis;</div><div class="line"></div><div class="line">        public EchartVOBuilder() &#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public EchartVOBuilder legend(String leg) &#123;</div><div class="line">            if (this.legend == null) &#123;</div><div class="line">                this.legend = new ArrayList&lt;String&gt;();</div><div class="line">            &#125;</div><div class="line">            this.legend.add(leg);</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public EchartVOBuilder legend(Collection&lt;? extends String&gt; legs) &#123;</div><div class="line">            if (this.legend == null) &#123;</div><div class="line">                this.legend = new ArrayList&lt;&gt;();</div><div class="line">            &#125;</div><div class="line">            this.legend.addAll(legs);</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public EchartVOBuilder xAxis(String x) &#123;</div><div class="line">            if (this.xAxis == null) &#123;</div><div class="line">                this.xAxis = new ArrayList&lt;String&gt;();</div><div class="line">            &#125;</div><div class="line">            this.xAxis.add(x);</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public EchartVOBuilder xAxis(Collection&lt;? extends String&gt; xs) &#123;</div><div class="line">            if (this.xAxis == null) &#123;</div><div class="line">                this.xAxis = new ArrayList&lt;&gt;();</div><div class="line">            &#125;</div><div class="line">            this.xAxis.addAll(xs);</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line">        public EchartVOBuilder yAxis(String y) &#123;</div><div class="line">            if (this.yAxis == null) &#123;</div><div class="line">                this.yAxis = new ArrayList&lt;String&gt;();</div><div class="line">            &#125;</div><div class="line">            this.yAxis.add(y);</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public EchartVOBuilder yAxis(Collection&lt;? extends String&gt; ys) &#123;</div><div class="line">            if (this.yAxis == null) &#123;</div><div class="line">                this.yAxis = new ArrayList&lt;&gt;();</div><div class="line">            &#125;</div><div class="line">            this.yAxis.addAll(ys);</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public EchartVO build() &#123;</div><div class="line">            return new EchartVO(legend, xAxis, yAxis);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public String toString() &#123;</div><div class="line">            return &quot;EchartVO.EchartVOBuilder&#123;&quot; +</div><div class="line">                    &quot;legend=&quot; + legend +</div><div class="line">                    &quot;, xAxis=&quot; + xAxis +</div><div class="line">                    &quot;, yAxis=&quot; + yAxis +</div><div class="line">                    &apos;&#125;&apos;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/浅析Java-Restful-API的数据结构构造/" rel="tag"># -浅析Java Restful API的数据结构构造</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/21/git协作加强/" rel="next" title="git协作加强">
+                <i class="fa fa-chevron-left"></i> git协作加强
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="ryanbing" />
+          <p class="site-author-name" itemprop="name">ryanbing</p>
+           
+              <p class="site-description motion-element" itemprop="description">ryanbing's blog</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/legotime" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      CSDN
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅析Java-Restful-API的数据结构构造"><span class="nav-number">1.</span> <span class="nav-text">浅析Java Restful API的数据结构构造</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用数据类型"><span class="nav-number">1.1.2.</span> <span class="nav-text">引用数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#collection"><span class="nav-number">1.1.3.</span> <span class="nav-text">collection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map"><span class="nav-number">1.1.4.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.1.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几个开发者常用封装"><span class="nav-number">1.2.</span> <span class="nav-text">几个开发者常用封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态码"><span class="nav-number">1.2.1.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构"><span class="nav-number">1.2.2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多层数据结构"><span class="nav-number">1.2.3.</span> <span class="nav-text">多层数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#制表"><span class="nav-number">1.2.4.</span> <span class="nav-text">制表</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ryanbing</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
